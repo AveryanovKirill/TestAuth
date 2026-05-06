@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFileData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FileData>
+    <Name>Test file 0</Name>
+  </FileData>
+  <FileData>
+    <Name>Test file 1</Name>
+  </FileData>
+  <FileData>
+    <Name>Test file 2</Name>
+  </FileData>
+</ArrayOfFileData>

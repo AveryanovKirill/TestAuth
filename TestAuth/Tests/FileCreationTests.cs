@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+using NUnit.Framework;
 using TestAuth.Model;
 
 namespace TestAuth.Tests
@@ -6,11 +9,19 @@ namespace TestAuth.Tests
     [TestFixture]
     public class FileCreationTests : TestBase
     {
-        [Test]
-        public void TheCreateFileTest()
+        public static IEnumerable<FileData> FileDataFromXmlFile()
+        {
+            using (StreamReader reader = new StreamReader(@"Data\files.xml"))
+            {
+                return (List<FileData>)new XmlSerializer(typeof(List<FileData>))
+                    .Deserialize(reader);
+            }
+        }
+
+        [Test, TestCaseSource(nameof(FileDataFromXmlFile))]
+        public void TheCreateFileTest(FileData file)
         {
             AccountData user = new AccountData("почта", "пароль");
-            FileData file = new FileData("Привет");
 
             app.Navigation.OpenLoginPage();
             app.Auth.Login(user);

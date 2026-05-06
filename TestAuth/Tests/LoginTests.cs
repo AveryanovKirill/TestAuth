@@ -15,6 +15,7 @@ namespace TestAuth.Tests
             app.Auth.Login(user);
             app.Auth.WaitForLoginSuccess();
 
+            Assert.That(app.Auth.IsLoggedIn(), Is.True);
             Assert.That(app.Driver.Url.Contains("/login"), Is.False);
         }
     }

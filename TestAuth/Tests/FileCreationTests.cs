@@ -21,7 +21,7 @@ namespace TestAuth.Tests
             app.File.CreateNewFile(file);
             app.File.WaitForSaving();
 
-            Assert.Pass("Файл создан");
+            Assert.That(app.Auth.IsLoggedIn(), Is.True);
         }
     }
 }

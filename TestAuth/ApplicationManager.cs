@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using System.Threading;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using TestAuth.Helpers;
 
@@ -6,22 +8,34 @@ namespace TestAuth
 {
     public class ApplicationManager
     {
-        private IWebDriver driver;
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
+        private IWebDriver driver;
         private NavigationHelper navigation;
         private LoginHelper auth;
         private FileHelper file;
-
         private string baseURL;
 
-        public ApplicationManager()
+        private ApplicationManager()
         {
             driver = new EdgeDriver();
+            driver.Manage().Window.Maximize();
             baseURL = "https://dynalist.io";
 
             navigation = new NavigationHelper(this, baseURL);
             auth = new LoginHelper(this);
             file = new FileHelper(this);
+        }
+
+        public static ApplicationManager GetInstance()
+        {
+            if (!app.IsValueCreated)
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigation.OpenHomePage();
+                app.Value = newInstance;
+            }
+            return app.Value;
         }
 
         public IWebDriver Driver
@@ -44,9 +58,16 @@ namespace TestAuth
             get { return file; }
         }
 
-        public void Stop()
+        ~ApplicationManager()
         {
-            driver.Quit();
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }

@@ -29,5 +29,10 @@ namespace TestAuth.Helpers
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             wait.Until(drv => !drv.Url.Contains("/login"));
         }
+
+        public bool IsLoggedIn()
+        {
+            return !driver.Url.Contains("/login");
+        }
     }
 }

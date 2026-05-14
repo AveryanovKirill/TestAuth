@@ -20,7 +20,7 @@ namespace TestAuth
         {
             driver = new EdgeDriver();
             driver.Manage().Window.Maximize();
-            baseURL = "https://dynalist.io";
+            baseURL = Settings.BaseURL;
 
             navigation = new NavigationHelper(this, baseURL);
             auth = new LoginHelper(this);

@@ -7,16 +7,29 @@ namespace TestAuth.Tests
     public class LoginTests : TestBase
     {
         [Test]
-        public void TheLoginTest()
+        public void LoginWithValidData()
         {
-            AccountData user = new AccountData("почта", "пароль");
+            AccountData user = new AccountData(Settings.Login, Settings.Password);
 
+            app.Auth.Logout();
             app.Navigation.OpenLoginPage();
             app.Auth.Login(user);
             app.Auth.WaitForLoginSuccess();
 
             Assert.That(app.Auth.IsLoggedIn(), Is.True);
-            Assert.That(app.Driver.Url.Contains("/login"), Is.False);
+            Assert.That(app.Auth.IsLoggedIn(user.Username), Is.True);
+        }
+
+        [Test]
+        public void LoginWithInvalidData()
+        {
+            AccountData user = new AccountData("почта", "пароль");
+
+            app.Auth.Logout();
+            app.Navigation.OpenLoginPage();
+            app.Auth.Login(user);
+
+            Assert.That(app.Auth.IsLoggedIn(), Is.False);
         }
     }
 }

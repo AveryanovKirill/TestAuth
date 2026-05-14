@@ -10,6 +10,7 @@ namespace TestAuth.Tests
         public void SetupTest()
         {
             app = ApplicationManager.GetInstance();
+            app.Navigation.OpenHomePage();
         }
     }
 }

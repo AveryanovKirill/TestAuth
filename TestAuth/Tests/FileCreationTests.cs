@@ -7,7 +7,7 @@ using TestAuth.Model;
 namespace TestAuth.Tests
 {
     [TestFixture]
-    public class FileCreationTests : TestBase
+    public class FileCreationTests : AuthBase
     {
         public static IEnumerable<FileData> FileDataFromXmlFile()
         {
@@ -21,13 +21,6 @@ namespace TestAuth.Tests
         [Test, TestCaseSource(nameof(FileDataFromXmlFile))]
         public void TheCreateFileTest(FileData file)
         {
-            AccountData user = new AccountData("почта", "пароль");
-
-            app.Navigation.OpenLoginPage();
-            app.Auth.Login(user);
-            app.Auth.WaitForLoginSuccess();
-
-            app.Navigation.OpenHomePage();
             app.File.OpenCreateFileMenu();
             app.File.CreateNewFile(file);
             app.File.WaitForSaving();

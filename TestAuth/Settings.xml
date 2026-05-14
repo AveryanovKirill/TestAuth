@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <BaseUrl>https://dynalist.io</BaseUrl>
+  <Login>почта</Login>
+  <Password>пароль</Password>
+</Settings>
